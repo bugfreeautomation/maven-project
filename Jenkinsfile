@@ -36,22 +36,12 @@ pipeline {
     changed {
         emailext body: '$DEFAULT_CONTENT', recipientProviders: [brokenTestsSuspects(), brokenBuildSuspects(), developers()], subject: '$DEFAULT_SUBJECT'
     }
-}   
-                
-                
-                
-                success {
+           success {
                     echo 'Code deployed to Production.'
-                    // send to email
-   
-
-                }
+                    }
 
                 failure {
-                    echo ' Deployment failed.'
-                    always {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-        }
+                    echo ' Deployment failed.'              
                     
                 }
             }
